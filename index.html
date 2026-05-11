@@ -9,19 +9,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --purple: #cb00ff;
       --yellow: #f0ff00;
-      --bg: #080808;
-      --glass-bg: rgba(255, 255, 255, 0.04);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --text: #ffffff;
+      --bg:     #080808;
+      --glass-bg:     rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+      --text:       #ffffff;
       --text-muted: #a1a1aa;
     }
 
@@ -36,28 +32,26 @@
       overflow-x: hidden;
     }
 
-    body::before {
-      content: '';
+    #bg {
       position: fixed;
       inset: 0;
-      background:
-        radial-gradient(ellipse 70% 55% at 15% 5%,  rgba(203, 0, 255, 0.20) 0%, transparent 60%),
-        radial-gradient(ellipse 55% 45% at 85% 90%, rgba(240, 255, 0,  0.10) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 35% at 50% 50%, rgba(203, 0, 255, 0.06) 0%, transparent 70%);
-      pointer-events: none;
       z-index: 0;
+      pointer-events: none;
     }
 
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
+    .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .particle {
+      position: absolute;
+      width: 2px; height: 2px;
+      border-radius: 50%;
+      opacity: 0;
+      animation: float-up var(--dur) var(--delay) ease-in infinite;
+    }
+    @keyframes float-up {
+      0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.1; }
+      100% { transform: translateY(-10vh) translateX(var(--drift)); opacity: 0; }
     }
 
     .container {
@@ -72,202 +66,77 @@
       gap: 2rem;
     }
 
-    .profile {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      text-align: center;
-    }
-
-    .avatar-wrap {
-      position: relative;
-      width: 100px;
-      height: 100px;
-    }
-
+    .profile { display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+    .avatar-wrap { position: relative; width: 100px; height: 100px; }
     .avatar-ring {
-      position: absolute;
-      inset: -3px;
-      border-radius: 50%;
+      position: absolute; inset: -3px; border-radius: 50%;
       background: conic-gradient(var(--purple), var(--yellow), var(--purple));
-      animation: spin 5s linear infinite;
-      z-index: 0;
+      animation: spin 5s linear infinite; z-index: 0;
     }
-
     @keyframes spin { to { transform: rotate(360deg); } }
-
     .avatar-ring::after {
-      content: '';
-      position: absolute;
-      inset: 3px;
-      border-radius: 50%;
-      background: var(--bg);
+      content: ''; position: absolute; inset: 3px;
+      border-radius: 50%; background: var(--bg);
     }
-
     .avatar {
-      position: relative;
-      z-index: 1;
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
+      position: relative; z-index: 1;
+      width: 100px; height: 100px;
+      border-radius: 50%; object-fit: cover; display: block;
     }
-
     .avatar-fallback {
       background: linear-gradient(135deg, #1a001f, #2a003a);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--purple);
-      letter-spacing: -1px;
-      user-select: none;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; font-weight: 700;
+      color: var(--purple); letter-spacing: -1px; user-select: none;
     }
-
     .profile-name {
-      font-size: 1.4rem;
-      font-weight: 700;
-      letter-spacing: -0.4px;
-      background: linear-gradient(110deg, #ffffff 20%, var(--yellow) 60%, var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-size: 1.4rem; font-weight: 700; letter-spacing: -0.4px;
+      background: linear-gradient(110deg, #fff 20%, var(--yellow) 60%, var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-
-    .profile-bio {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      max-width: 300px;
-      line-height: 1.55;
-    }
-
+    .profile-bio { font-size: 0.875rem; color: var(--text-muted); max-width: 300px; line-height: 1.55; }
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: rgba(203, 0, 255, 0.12);
-      border: 1px solid rgba(203, 0, 255, 0.30);
-      border-radius: 999px;
-      padding: 0.28rem 0.85rem;
-      font-size: 0.73rem;
-      font-weight: 600;
-      color: #e580ff;
-      letter-spacing: 0.3px;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(203,0,255,0.12); border: 1px solid rgba(203,0,255,0.30);
+      border-radius: 999px; padding: 0.28rem 0.85rem;
+      font-size: 0.73rem; font-weight: 600; color: #e580ff; letter-spacing: 0.3px;
     }
-
     .badge i { font-size: 0.65rem; }
 
-    .links {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-    }
-
+    .links { width: 100%; display: flex; flex-direction: column; gap: 0.7rem; }
     .link-card {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+      display: flex; align-items: center; gap: 1rem;
       padding: 1rem 1.2rem;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 14px;
-      text-decoration: none;
-      color: var(--text);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      border-radius: 14px; text-decoration: none; color: var(--text);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      transition: transform .2s, background .2s, border-color .2s, box-shadow .2s;
     }
-
     .link-card:hover {
       transform: translateY(-2px);
-      background: rgba(203, 0, 255, 0.07);
-      border-color: rgba(203, 0, 255, 0.30);
-      box-shadow: 0 6px 28px rgba(203, 0, 255, 0.15);
+      background: rgba(203,0,255,0.07); border-color: rgba(203,0,255,0.30);
+      box-shadow: 0 6px 28px rgba(203,0,255,0.15);
     }
-
     .link-card:active { transform: translateY(0); }
-
-    .link-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.15rem;
-      flex-shrink: 0;
-    }
-
+    .link-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; }
     .link-text { flex: 1; }
-
-    .link-title {
-      font-size: 0.93rem;
-      font-weight: 600;
-    }
-
-    .link-subtitle {
-      font-size: 0.73rem;
-      color: var(--text-muted);
-      margin-top: 0.1rem;
-    }
-
-    .link-arrow {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      opacity: 0.5;
-      transition: opacity 0.2s, transform 0.2s;
-    }
-
-    .link-card:hover .link-arrow {
-      opacity: 1;
-      transform: translateX(3px);
-      color: var(--yellow);
-    }
-
-    .icon-instagram { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-    .icon-tiktok    { background: linear-gradient(135deg, #111, #69c9d0 50%, #ee1d52); }
-    .icon-youtube   { background: #ff0000; }
+    .link-title { font-size: .93rem; font-weight: 600; }
+    .link-subtitle { font-size: .73rem; color: var(--text-muted); margin-top: .1rem; }
+    .link-arrow { font-size: .78rem; color: var(--text-muted); opacity: .5; transition: opacity .2s, transform .2s; }
+    .link-card:hover .link-arrow { opacity: 1; transform: translateX(3px); color: var(--yellow); }
+    .icon-instagram { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+    .icon-tiktok    { background: linear-gradient(135deg,#111,#69c9d0 50%,#ee1d52); }
+    .icon-youtube   { background: #f00; }
     .icon-discord   { background: #5865f2; }
-    .icon-livepix   { background: linear-gradient(135deg, #00c2ff, #0055ff); }
-    .icon-blog      { background: linear-gradient(135deg, #cb00ff, #7700aa); }
+    .icon-livepix   { background: linear-gradient(135deg,#00c2ff,#0055ff); }
+    .icon-blog      { background: linear-gradient(135deg,#cb00ff,#7700aa); }
 
-    .footer {
-      font-size: 0.7rem;
-      color: rgba(255, 255, 255, 0.2);
-      text-align: center;
-    }
-
-    .particles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .particle {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      border-radius: 50%;
-      opacity: 0;
-      animation: float-up var(--dur) var(--delay) ease-in infinite;
-    }
-
-    @keyframes float-up {
-      0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
-      10%  { opacity: 0.7; }
-      90%  { opacity: 0.15; }
-      100% { transform: translateY(-10vh) translateX(var(--drift)); opacity: 0; }
-    }
+    .footer { font-size: .7rem; color: rgba(255,255,255,.2); text-align: center; }
   </style>
 </head>
 <body>
 
+  <canvas id="bg"></canvas>
   <div class="particles" id="particles"></div>
 
   <div class="container">
@@ -275,12 +144,8 @@
     <div class="profile">
       <div class="avatar-wrap">
         <div class="avatar-ring"></div>
-        <img
-          class="avatar"
-          src="avatar.jpg"
-          alt="128.bits.oficial"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-        />
+        <img class="avatar" src="avatar.jpg" alt="128.bits.oficial"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
         <div class="avatar avatar-fallback" style="display:none;">128</div>
       </div>
       <div>
@@ -294,91 +159,181 @@
     </div>
 
     <div class="links">
-
       <a class="link-card" href="https://www.instagram.com/128.bits.oficial/" target="_blank" rel="noopener">
-        <div class="link-icon icon-instagram">
-          <i class="fa-brands fa-instagram" style="color:#fff"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">Instagram</div>
-          <div class="link-subtitle">@128.bits.oficial</div>
-        </div>
+        <div class="link-icon icon-instagram"><i class="fa-brands fa-instagram" style="color:#fff"></i></div>
+        <div class="link-text"><div class="link-title">Instagram</div><div class="link-subtitle">@128.bits.oficial</div></div>
         <i class="fa-solid fa-arrow-right link-arrow"></i>
       </a>
-
       <a class="link-card" href="https://www.tiktok.com/@128.bits.oficial" target="_blank" rel="noopener">
-        <div class="link-icon icon-tiktok">
-          <i class="fa-brands fa-tiktok" style="color:#fff"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">TikTok</div>
-          <div class="link-subtitle">@128.bits.oficial</div>
-        </div>
+        <div class="link-icon icon-tiktok"><i class="fa-brands fa-tiktok" style="color:#fff"></i></div>
+        <div class="link-text"><div class="link-title">TikTok</div><div class="link-subtitle">@128.bits.oficial</div></div>
         <i class="fa-solid fa-arrow-right link-arrow"></i>
       </a>
-
       <a class="link-card" href="https://www.youtube.com/@128.bits.oficial" target="_blank" rel="noopener">
-        <div class="link-icon icon-youtube">
-          <i class="fa-brands fa-youtube" style="color:#fff"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">YouTube</div>
-          <div class="link-subtitle">@128.bits.oficial</div>
-        </div>
+        <div class="link-icon icon-youtube"><i class="fa-brands fa-youtube" style="color:#fff"></i></div>
+        <div class="link-text"><div class="link-title">YouTube</div><div class="link-subtitle">@128.bits.oficial</div></div>
         <i class="fa-solid fa-arrow-right link-arrow"></i>
       </a>
-
       <a class="link-card" href="https://discord.gg/yjJ5rz3xWn" target="_blank" rel="noopener">
-        <div class="link-icon icon-discord">
-          <i class="fa-brands fa-discord" style="color:#fff"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">Discord</div>
-          <div class="link-subtitle">Entre na nossa comunidade</div>
-        </div>
+        <div class="link-icon icon-discord"><i class="fa-brands fa-discord" style="color:#fff"></i></div>
+        <div class="link-text"><div class="link-title">Discord</div><div class="link-subtitle">Entre na nossa comunidade</div></div>
         <i class="fa-solid fa-arrow-right link-arrow"></i>
       </a>
-
       <a class="link-card" href="https://livepix.gg/eusouoedufaller" target="_blank" rel="noopener">
-        <div class="link-icon icon-livepix">
-          <i class="fa-solid fa-bolt" style="color:#fff"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">LivePix</div>
-          <div class="link-subtitle">Apoie o canal</div>
-        </div>
+        <div class="link-icon icon-livepix"><i class="fa-solid fa-bolt" style="color:#fff"></i></div>
+        <div class="link-text"><div class="link-title">LivePix</div><div class="link-subtitle">Apoie o canal</div></div>
         <i class="fa-solid fa-arrow-right link-arrow"></i>
       </a>
-
       <a class="link-card" href="https://diariosdesobreviventes.blogspot.com/" target="_blank" rel="noopener">
-        <div class="link-icon icon-blog">
-          <i class="fa-solid fa-book-open" style="color:#fff"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">Diários de Sobreviventes</div>
-          <div class="link-subtitle">Blog</div>
-        </div>
+        <div class="link-icon icon-blog"><i class="fa-solid fa-book-open" style="color:#fff"></i></div>
+        <div class="link-text"><div class="link-title">Diários de Sobreviventes</div><div class="link-subtitle">Blog</div></div>
         <i class="fa-solid fa-arrow-right link-arrow"></i>
       </a>
-
     </div>
 
     <div class="footer">© 2025 128.bits.oficial · Feito com 💜</div>
   </div>
 
   <script>
-    const container = document.getElementById('particles');
-    const colors = ['#cb00ff', '#f0ff00', '#ffffff'];
-    for (let i = 0; i < 22; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.style.setProperty('--dur',   (9 + Math.random() * 12) + 's');
-      p.style.setProperty('--delay', (Math.random() * 12) + 's');
-      p.style.setProperty('--drift', (Math.random() * 120 - 60) + 'px');
-      p.style.left       = (Math.random() * 100) + '%';
-      p.style.background = colors[Math.floor(Math.random() * colors.length)];
-      container.appendChild(p);
+  (() => {
+    const canvas = document.getElementById('bg');
+    const ctx    = canvas.getContext('2d');
+
+    const NS = 512;
+    const ng = new Float32Array(NS * NS);
+    let seed = 0x9e3779b9;
+    const rng = () => {
+      seed = Math.imul(seed ^ seed >>> 16, 0x45d9f3b);
+      seed = Math.imul(seed ^ seed >>> 16, 0x45d9f3b);
+      return ((seed ^ seed >>> 16) >>> 0) / 0x100000000;
+    };
+    for (let i = 0; i < ng.length; i++) ng[i] = rng();
+
+    const sm = t => t * t * (3 - 2 * t);
+
+    function vn(x, y) {
+      const xi = ((Math.floor(x) % NS) + NS) % NS;
+      const yi = ((Math.floor(y) % NS) + NS) % NS;
+      const xf = x - Math.floor(x), yf = y - Math.floor(y);
+      const u  = sm(xf), v = sm(yf);
+      const x1 = (xi+1) % NS, y1 = (yi+1) % NS;
+      const a = ng[yi*NS+xi], b = ng[yi*NS+x1];
+      const c = ng[y1*NS+xi], d = ng[y1*NS+x1];
+      return a + (b-a)*u + (c-a)*v + (a-b-c+d)*u*v;
     }
+
+    function fbm(x, y) {
+      return vn(x,   y  )*0.500 + vn(x*2,y*2)*0.250
+           + vn(x*4, y*4)*0.125 + vn(x*8,y*8)*0.0625;
+    }
+
+    const BAKE = 512;
+    const noc  = document.createElement('canvas');
+    noc.width = noc.height = BAKE;
+    const nctx = noc.getContext('2d');
+    const imd  = nctx.createImageData(BAKE, BAKE);
+    const nd   = imd.data;
+
+    const NSCL = 3.5, THR = 0.50, SOFT = 0.10;
+    for (let y = 0; y < BAKE; y++) {
+      for (let x = 0; x < BAKE; x++) {
+        const v = fbm((x/BAKE)*NSCL, (y/BAKE)*NSCL);
+        let b   = Math.max(0, Math.min(1, (v - THR + SOFT) / (SOFT*2)));
+        b = sm(b);
+        const i = (y*BAKE+x)*4;
+        nd[i] = nd[i+1] = nd[i+2] = b*255|0;
+        nd[i+3] = 255;
+      }
+    }
+    nctx.putImageData(imd, 0, 0);
+
+    const goc  = document.createElement('canvas');
+    const gctx = goc.getContext('2d');
+    const GRID = 40;
+
+    function buildGrid(W, H) {
+      goc.width = W; goc.height = H;
+      gctx.clearRect(0, 0, W, H);
+      gctx.strokeStyle = '#cb00ff';
+      gctx.lineWidth   = 1;
+      gctx.shadowColor = '#cb00ff';
+      gctx.shadowBlur  = 8;
+      for (let x = 0; x <= W; x += GRID) {
+        gctx.beginPath(); gctx.moveTo(x+.5, 0); gctx.lineTo(x+.5, H); gctx.stroke();
+      }
+      for (let y = 0; y <= H; y += GRID) {
+        gctx.beginPath(); gctx.moveTo(0, y+.5); gctx.lineTo(W, y+.5); gctx.stroke();
+      }
+      gctx.shadowColor = '#f0ff00';
+      gctx.shadowBlur  = 14;
+      gctx.fillStyle   = '#f0ff00';
+      for (let x = GRID*2; x < W; x += GRID*4) {
+        for (let y = GRID*2; y < H; y += GRID*4) {
+          gctx.beginPath(); gctx.arc(x, y, 1.8, 0, Math.PI*2); gctx.fill();
+        }
+      }
+    }
+
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+      buildGrid(window.innerWidth, window.innerHeight);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const SPX = 0.011, SPY = 0.007;
+
+    function render(ts) {
+      const W = canvas.width, H = canvas.height;
+      const TW = Math.max(W, H) * 1.6;
+      const ox = (ts * SPX) % TW;
+      const oy = (ts * SPY) % TW;
+
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = 1;
+      ctx.fillStyle   = '#080808';
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.drawImage(goc, 0, 0);
+
+      ctx.globalCompositeOperation = 'multiply';
+      ctx.imageSmoothingEnabled    = true;
+      for (let tx = -ox; tx < W + TW; tx += TW) {
+        for (let ty = -oy; ty < H + TW; ty += TW) {
+          ctx.drawImage(noc, tx, ty, TW, TW);
+        }
+      }
+
+      ctx.globalCompositeOperation = 'screen';
+      ctx.globalAlpha = 0.07;
+      for (let tx = -ox; tx < W + TW; tx += TW) {
+        for (let ty = -oy; ty < H + TW; ty += TW) {
+          ctx.drawImage(noc, tx, ty, TW, TW);
+        }
+      }
+
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+  })();
+
+  (() => {
+    const p = document.getElementById('particles');
+    const c = ['#cb00ff','#f0ff00','#ffffff'];
+    for (let i = 0; i < 20; i++) {
+      const el = document.createElement('div');
+      el.className = 'particle';
+      el.style.setProperty('--dur',   (9+Math.random()*12)+'s');
+      el.style.setProperty('--delay', (Math.random()*12)+'s');
+      el.style.setProperty('--drift', (Math.random()*120-60)+'px');
+      el.style.left       = (Math.random()*100)+'%';
+      el.style.background = c[Math.floor(Math.random()*c.length)];
+      p.appendChild(el);
+    }
+  })();
   <\/script>
 
 </body>
