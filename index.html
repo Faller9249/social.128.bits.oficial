@@ -16,17 +16,18 @@
     }
 
     :root {
-      --accent: #7c3aed;
-      --accent2: #06b6d4;
+      --purple: #cb00ff;
+      --yellow: #f0ff00;
+      --bg: #080808;
       --glass-bg: rgba(255, 255, 255, 0.04);
       --glass-border: rgba(255, 255, 255, 0.08);
-      --text: #f1f5f9;
-      --text-muted: #94a3b8;
+      --text: #ffffff;
+      --text-muted: #a1a1aa;
     }
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #0a0a0f;
+      background: var(--bg);
       color: var(--text);
       min-height: 100vh;
       display: flex;
@@ -35,27 +36,25 @@
       overflow-x: hidden;
     }
 
-    /* Animated background */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124, 58, 237, 0.18) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
+        radial-gradient(ellipse 70% 55% at 15% 5%,  rgba(203, 0, 255, 0.20) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 45% at 85% 90%, rgba(240, 255, 0,  0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 35% at 50% 50%, rgba(203, 0, 255, 0.06) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* Grid overlay */
     body::after {
       content: '';
       position: fixed;
       inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
       background-size: 40px 40px;
       pointer-events: none;
       z-index: 0;
@@ -66,14 +65,13 @@
       z-index: 1;
       width: 100%;
       max-width: 440px;
-      padding: 2rem 1.25rem 3rem;
+      padding: 2.5rem 1.25rem 3rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 2rem;
     }
 
-    /* Profile */
     .profile {
       display: flex;
       flex-direction: column;
@@ -84,54 +82,56 @@
 
     .avatar-wrap {
       position: relative;
-      width: 96px;
-      height: 96px;
+      width: 100px;
+      height: 100px;
     }
 
     .avatar-ring {
       position: absolute;
       inset: -3px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      animation: spin 6s linear infinite;
+      background: conic-gradient(var(--purple), var(--yellow), var(--purple));
+      animation: spin 5s linear infinite;
       z-index: 0;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     .avatar-ring::after {
       content: '';
       position: absolute;
       inset: 3px;
       border-radius: 50%;
-      background: #0a0a0f;
+      background: var(--bg);
     }
 
     .avatar {
       position: relative;
       z-index: 1;
-      width: 96px;
-      height: 96px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       object-fit: cover;
-      background: linear-gradient(135deg, #1e1b4b, #0e7490);
+      display: block;
+    }
+
+    .avatar-fallback {
+      background: linear-gradient(135deg, #1a001f, #2a003a);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.5rem;
+      font-size: 2rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--purple);
       letter-spacing: -1px;
       user-select: none;
     }
 
     .profile-name {
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       font-weight: 700;
-      letter-spacing: -0.3px;
-      background: linear-gradient(135deg, #f1f5f9 30%, var(--accent2));
+      letter-spacing: -0.4px;
+      background: linear-gradient(110deg, #ffffff 20%, var(--yellow) 60%, var(--purple));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -141,58 +141,55 @@
       font-size: 0.875rem;
       color: var(--text-muted);
       max-width: 300px;
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      background: rgba(124, 58, 237, 0.15);
-      border: 1px solid rgba(124, 58, 237, 0.3);
+      gap: 0.4rem;
+      background: rgba(203, 0, 255, 0.12);
+      border: 1px solid rgba(203, 0, 255, 0.30);
       border-radius: 999px;
-      padding: 0.25rem 0.75rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: #c4b5fd;
+      padding: 0.28rem 0.85rem;
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: #e580ff;
+      letter-spacing: 0.3px;
     }
 
-    .badge i { font-size: 0.7rem; }
+    .badge i { font-size: 0.65rem; }
 
-    /* Links */
     .links {
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.7rem;
     }
 
     .link-card {
       display: flex;
       align-items: center;
       gap: 1rem;
-      padding: 1rem 1.25rem;
+      padding: 1rem 1.2rem;
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
       border-radius: 14px;
       text-decoration: none;
       color: var(--text);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
     }
 
     .link-card:hover {
       transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.07);
-      border-color: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      background: rgba(203, 0, 255, 0.07);
+      border-color: rgba(203, 0, 255, 0.30);
+      box-shadow: 0 6px 28px rgba(203, 0, 255, 0.15);
     }
 
-    .link-card:active {
-      transform: translateY(0);
-    }
+    .link-card:active { transform: translateY(0); }
 
     .link-icon {
       width: 42px;
@@ -201,53 +198,49 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       flex-shrink: 0;
     }
 
-    .link-text {
-      flex: 1;
-    }
+    .link-text { flex: 1; }
 
     .link-title {
-      font-size: 0.95rem;
+      font-size: 0.93rem;
       font-weight: 600;
     }
 
     .link-subtitle {
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       color: var(--text-muted);
       margin-top: 0.1rem;
     }
 
     .link-arrow {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
-      opacity: 0.6;
+      opacity: 0.5;
       transition: opacity 0.2s, transform 0.2s;
     }
 
     .link-card:hover .link-arrow {
       opacity: 1;
       transform: translateX(3px);
+      color: var(--yellow);
     }
 
-    /* Individual platform colors */
-    .icon-instagram  { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-    .icon-tiktok     { background: linear-gradient(135deg, #010101, #69c9d0, #ee1d52); }
-    .icon-youtube    { background: #ff0000; }
-    .icon-discord    { background: #5865f2; }
-    .icon-livepix    { background: linear-gradient(135deg, #00c2ff, #0066ff); }
-    .icon-blog       { background: linear-gradient(135deg, #f97316, #fb923c); }
+    .icon-instagram { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+    .icon-tiktok    { background: linear-gradient(135deg, #111, #69c9d0 50%, #ee1d52); }
+    .icon-youtube   { background: #ff0000; }
+    .icon-discord   { background: #5865f2; }
+    .icon-livepix   { background: linear-gradient(135deg, #00c2ff, #0055ff); }
+    .icon-blog      { background: linear-gradient(135deg, #cb00ff, #7700aa); }
 
-    /* Footer */
     .footer {
-      font-size: 0.72rem;
-      color: rgba(148, 163, 184, 0.4);
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.2);
       text-align: center;
     }
 
-    /* Floating particles */
     .particles {
       position: fixed;
       inset: 0;
@@ -260,7 +253,6 @@
       position: absolute;
       width: 2px;
       height: 2px;
-      background: var(--accent2);
       border-radius: 50%;
       opacity: 0;
       animation: float-up var(--dur) var(--delay) ease-in infinite;
@@ -268,24 +260,28 @@
 
     @keyframes float-up {
       0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
-      10%  { opacity: 0.6; }
-      90%  { opacity: 0.2; }
+      10%  { opacity: 0.7; }
+      90%  { opacity: 0.15; }
       100% { transform: translateY(-10vh) translateX(var(--drift)); opacity: 0; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Particles -->
   <div class="particles" id="particles"></div>
 
   <div class="container">
 
-    <!-- Profile -->
     <div class="profile">
       <div class="avatar-wrap">
         <div class="avatar-ring"></div>
-        <div class="avatar">128</div>
+        <img
+          class="avatar"
+          src="avatar.jpg"
+          alt="128.bits.oficial"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="avatar avatar-fallback" style="display:none;">128</div>
       </div>
       <div>
         <div class="profile-name">128.bits.oficial</div>
@@ -297,7 +293,6 @@
       </div>
     </div>
 
-    <!-- Links -->
     <div class="links">
 
       <a class="link-card" href="https://www.instagram.com/128.bits.oficial/" target="_blank" rel="noopener">
@@ -344,7 +339,7 @@
         <i class="fa-solid fa-arrow-right link-arrow"></i>
       </a>
 
-      <a class="link-card" href="https://tr.ee/UFYhSJy2Y9" target="_blank" rel="noopener">
+      <a class="link-card" href="https://livepix.gg/eusouoedufaller" target="_blank" rel="noopener">
         <div class="link-icon icon-livepix">
           <i class="fa-solid fa-bolt" style="color:#fff"></i>
         </div>
@@ -372,19 +367,19 @@
   </div>
 
   <script>
-    // Generate floating particles
     const container = document.getElementById('particles');
-    for (let i = 0; i < 20; i++) {
+    const colors = ['#cb00ff', '#f0ff00', '#ffffff'];
+    for (let i = 0; i < 22; i++) {
       const p = document.createElement('div');
       p.className = 'particle';
-      p.style.setProperty('--dur', (8 + Math.random() * 12) + 's');
-      p.style.setProperty('--delay', (Math.random() * 10) + 's');
-      p.style.setProperty('--drift', (Math.random() * 100 - 50) + 'px');
-      p.style.left = (Math.random() * 100) + '%';
-      p.style.background = Math.random() > 0.5 ? '#7c3aed' : '#06b6d4';
+      p.style.setProperty('--dur',   (9 + Math.random() * 12) + 's');
+      p.style.setProperty('--delay', (Math.random() * 12) + 's');
+      p.style.setProperty('--drift', (Math.random() * 120 - 60) + 'px');
+      p.style.left       = (Math.random() * 100) + '%';
+      p.style.background = colors[Math.floor(Math.random() * colors.length)];
       container.appendChild(p);
     }
-  </script>
+  <\/script>
 
 </body>
 </html>
