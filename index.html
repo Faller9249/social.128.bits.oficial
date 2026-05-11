@@ -35,7 +35,6 @@
       overflow-x: hidden;
     }
 
-    /* Animated background */
     body::before {
       content: '';
       position: fixed;
@@ -48,7 +47,6 @@
       z-index: 0;
     }
 
-    /* Grid overlay */
     body::after {
       content: '';
       position: fixed;
@@ -73,7 +71,6 @@
       gap: 2rem;
     }
 
-    /* Profile */
     .profile {
       display: flex;
       flex-direction: column;
@@ -159,7 +156,6 @@
 
     .badge i { font-size: 0.7rem; }
 
-    /* Links */
     .links {
       width: 100%;
       display: flex;
@@ -205,9 +201,7 @@
       flex-shrink: 0;
     }
 
-    .link-text {
-      flex: 1;
-    }
+    .link-text { flex: 1; }
 
     .link-title {
       font-size: 0.95rem;
@@ -232,7 +226,6 @@
       transform: translateX(3px);
     }
 
-    /* Individual platform colors */
     .icon-instagram  { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
     .icon-tiktok     { background: linear-gradient(135deg, #010101, #69c9d0, #ee1d52); }
     .icon-youtube    { background: #ff0000; }
@@ -240,14 +233,12 @@
     .icon-livepix    { background: linear-gradient(135deg, #00c2ff, #0066ff); }
     .icon-blog       { background: linear-gradient(135deg, #f97316, #fb923c); }
 
-    /* Footer */
     .footer {
       font-size: 0.72rem;
       color: rgba(148, 163, 184, 0.4);
       text-align: center;
     }
 
-    /* Floating particles */
     .particles {
       position: fixed;
       inset: 0;
@@ -260,7 +251,6 @@
       position: absolute;
       width: 2px;
       height: 2px;
-      background: var(--accent2);
       border-radius: 50%;
       opacity: 0;
       animation: float-up var(--dur) var(--delay) ease-in infinite;
@@ -276,12 +266,10 @@
 </head>
 <body>
 
-  <!-- Particles -->
   <div class="particles" id="particles"></div>
 
   <div class="container">
 
-    <!-- Profile -->
     <div class="profile">
       <div class="avatar-wrap">
         <div class="avatar-ring"></div>
@@ -297,7 +285,6 @@
       </div>
     </div>
 
-    <!-- Links -->
     <div class="links">
 
       <a class="link-card" href="https://www.instagram.com/128.bits.oficial/" target="_blank" rel="noopener">
@@ -372,7 +359,6 @@
   </div>
 
   <script>
-    // Generate floating particles
     const container = document.getElementById('particles');
     for (let i = 0; i < 20; i++) {
       const p = document.createElement('div');
@@ -384,7 +370,7 @@
       p.style.background = Math.random() > 0.5 ? '#7c3aed' : '#06b6d4';
       container.appendChild(p);
     }
-  </script>
+  <\/script>
 
 </body>
 </html>
